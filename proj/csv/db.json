@@ -1,0 +1,85 @@
+{
+  "dados": [
+    {
+      "id": 1,
+      "periodo": "2024-01-01 A 2024-03-31",
+      "tipo": "Trimestral",
+      "taxaRejeicao": 50,
+      "acoes": 2.1,
+      "tempoSessao": 210,
+      "notaUsabilidade": 0.97
+    },
+    {
+      "id": 2,
+      "periodo": "2024-04-01 A 2024-06-30",
+      "tipo": "Trimestral",
+      "taxaRejeicao": 39,
+      "acoes": 2.3,
+      "tempoSessao": 192,
+      "notaUsabilidade": 0.99
+    },
+    {
+      "id": 3,
+      "periodo": "2024-07-01 A 2024-09-30",
+      "tipo": "Trimestral",
+      "taxaRejeicao": 44,
+      "acoes": 2.1,
+      "tempoSessao": 169,
+      "notaUsabilidade": 0.89
+    },
+    {
+      "id": 4,
+      "periodo": "2024-10-01 A 2024-12-31",
+      "tipo": "Trimestral",
+      "taxaRejeicao": 49,
+      "acoes": 2.0,
+      "tempoSessao": 160,
+      "notaUsabilidade": 0.84
+    },
+    {
+      "id": 5,
+      "periodo": "2024-01-01 A 2024-06-30",
+      "tipo": "Semestral",
+      "taxaRejeicao": 44,
+      "acoes": 2.2,
+      "tempoSessao": 200,
+      "notaUsabilidade": 0.98
+    },
+    {
+      "id": 6,
+      "periodo": "2024-07-01 A 2024-12-31",
+      "tipo": "Semestral",
+      "taxaRejeicao": 46,
+      "acoes": 2.1,
+      "tempoSessao": 165,
+      "notaUsabilidade": 0.87
+    },
+    {
+      "id": 7,
+      "periodo": "2024-01-01 A 2024-12-31",
+      "tipo": "Anual",
+      "taxaRejeicao": 45,
+      "acoes": 2.1,
+      "tempoSessao": 181,
+      "notaUsabilidade": 0.92
+    },
+    {
+      "id": 8,
+      "periodo": "Média Trimestral",
+      "tipo": "Média",
+      "taxaRejeicao": 45,
+      "acoes": 2.13,
+      "tempoSessao": 182.43,
+      "notaUsabilidade": 0.92
+    },
+    {
+      "id": 9,
+      "periodo": "Média Semestral",
+      "tipo": "Média",
+      "taxaRejeicao": 45,
+      "acoes": 2.15,
+      "tempoSessao": 182.5,
+      "notaUsabilidade": 0.93
+    }
+  ]
+}
