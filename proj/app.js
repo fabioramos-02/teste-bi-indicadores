@@ -2,9 +2,11 @@ let taxaRejeicaoChart, notaUsabilidadeChart, acoesChart, tempoSessaoChart; // Va
 
 // Função para buscar e exibir os dados do JSON Server
 document.getElementById("periodo").addEventListener("change", updateDashboard);
+document.getElementById("site").addEventListener("change", updateDashboard);
 
 function updateDashboard() {
   const periodo = document.getElementById("periodo").value;
+  const site = document.getElementById("site").value;
 
   fetch("http://localhost:3000/dados")
     .then((response) => response.json())
@@ -13,10 +15,11 @@ function updateDashboard() {
       // Limpar os dados anteriores
       container.innerHTML = "";
 
-      // Filtrar os dados conforme o período selecionado
-      const filteredData = data.filter(
-        (data) => data.tipo === periodo || periodo === "todos"
-      );
+      // Filtrar os dados conforme o período e o site selecionados
+      const filteredData = data.filter((data) => {
+        return (data.tipo === periodo || periodo === "todos") &&
+               (data.site === site || site === "todos");
+      });
 
       // Exibindo os dados
       filteredData.forEach((data) => {
@@ -24,7 +27,7 @@ function updateDashboard() {
         card.classList.add("card", "mb-3");
         card.innerHTML = ` 
           <div class="card-body">
-            <h5 class="card-title">${data.periodo} (${data.tipo})</h5>
+            <h5 class="card-title">${data.periodoInicial} a ${data.periodoFinal} (${data.tipo}) - ${data.site}</h5>
             <p><strong>Taxa de Rejeição:</strong> ${data.taxaRejeicao}%</p>
             <p><strong>Ações:</strong> ${data.acoes}</p>
             <p><strong>Tempo Médio de Sessão:</strong> ${data.tempoSessao} segundos</p>
@@ -35,7 +38,7 @@ function updateDashboard() {
       });
 
       // Preparando os dados para os gráficos
-      const periodos = filteredData.map((data) => formatDate(data.periodo)); // Formatar as datas
+      const periodos = filteredData.map((data) => formatDate(data.periodoInicial)); // Formatar as datas
       const taxaRejeicao = filteredData.map((data) => data.taxaRejeicao);
       const notaUsabilidade = filteredData.map((data) => data.notaUsabilidade);
       const acoes = filteredData.map((data) => data.acoes);
@@ -64,11 +67,8 @@ function updateDashboard() {
 function formatDate(dateString) {
   const DateTime = luxon.DateTime;
 
-  // Pega a primeira parte da data, antes do 'A'
-  const validDate = dateString.split(" A ")[0]; // "2024-01-01"
-
   // Converte para um formato que o Luxon pode processar
-  const formattedDate = DateTime.fromISO(validDate).toFormat("MMM dd, yyyy"); // Exemplo: Jan 01, 2024
+  const formattedDate = DateTime.fromISO(dateString).toFormat("MMM dd, yyyy"); // Exemplo: Jan 01, 2024
 
   return formattedDate;
 }
@@ -209,5 +209,22 @@ function updateCharts(
   });
 }
 
-// Inicializa o dashboard com o filtro inicial (trimestral)
-updateDashboard();
+// Função para carregar e preencher as opções de filtro dinamicamente
+function loadFilters() {
+  fetch("http://localhost:3000/dados")
+    .then((response) => response.json())
+    .then((data) => {
+      const uniqueSites = [...new Set(data.map((item) => item.site))];
+      const siteSelect = document.getElementById("site");
+
+      uniqueSites.forEach((site) => {
+        const option = document.createElement("option");
+        option.value = site;
+        option.textContent = site;
+        siteSelect.appendChild(option);
+      });
+    });
+}
+
+// Carregar os filtros assim que a página for carregada
+window.onload = loadFilters;
